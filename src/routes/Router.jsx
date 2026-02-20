@@ -5,9 +5,8 @@ import Loading from "../components/common/loading/Loading";
 const Home = lazy(() => import("../pages/Home"));
 const Main = lazy(() => import("../layouts/Main"));
 
-// Récupère le nom du repo depuis VITE_REPO_NAME si défini (utile pour GitHub Pages)
-const repoName = import.meta.env.VITE_REPO_NAME || "";
-const baseName = repoName ? `/${repoName}` : "/"; // Si vide, utilise "/"
+// Pour Vercel, le site est à la racine → basename vide
+const baseName = ""; // <-- important pour éviter l'erreur
 
 export const router = createBrowserRouter(
   [
@@ -20,11 +19,11 @@ export const router = createBrowserRouter(
       ),
       children: [
         {
-          path: "/",
+          path: "/", // Page d'accueil
           element: <Home />,
         },
       ],
     },
   ],
-  { basename: baseName } // <-- utiliser le basename corrigé
+  { basename: baseName } // <-- vide pour Vercel
 );
